@@ -5,6 +5,8 @@ class TrapSelection extends Component {
   render() {
     return (
      <h1>TrapSelection</h1>
+      
+
     )
   }
 }
