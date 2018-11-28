@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import { compose } from "redux";
+import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import { LOGIN_ACTIONS } from "../../redux/actions/loginActions";
@@ -11,7 +12,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 import { Button, List, ListItem, TextField } from "@material-ui/core/";
 
-import { homeRoute } from "../../navigationRoutes";
+import { rosterRoute } from "../../navigationRoutes";
 
 import ViewAdminEditCompetition from "../ViewAdminEditCompetition/ViewAdminEditCompetition";
 import { toast } from "react-toastify";
@@ -56,9 +57,9 @@ class ViewAdminSelectCompetition extends Component {
       return false;
     } else {
       axios({
-        method: 'POST',
-        url: '/api/competition/admin',
-        data: { name: this.state.newCompetitionName },
+        method: "POST",
+        url: "/api/competition/admin",
+        data: { name: this.state.newCompetitionName }
       })
         .then(response => {
           this.editCompetition(response.data);
@@ -75,8 +76,8 @@ class ViewAdminSelectCompetition extends Component {
   // Gets a list of all competitions
   getCompetitions = () => {
     axios({
-      method: 'GET',
-      url: '/api/competition/admin',
+      method: "GET",
+      url: "/api/competition/admin"
     }).then(response => {
       let newCompetitions = response.data.map(competition => {
         return {
@@ -108,9 +109,9 @@ class ViewAdminSelectCompetition extends Component {
     const body = this.state.competitionToEdit;
 
     axios({
-      method: 'PUT',
+      method: "PUT",
       url: `/api/competition/admin`,
-      data: body,
+      data: body
     }).then(response => {
       this.setState({
         ...this.state,
@@ -131,8 +132,8 @@ class ViewAdminSelectCompetition extends Component {
   // Delete, passed as props to ViewAdminEditCompetition
   deleteCompetition = competitionIdToDelete => {
     axios({
-      method: 'DELETE',
-      url: `/api/competition/admin/${competitionIdToDelete}`,
+      method: "DELETE",
+      url: `/api/competition/admin/${competitionIdToDelete}`
     })
       .then(response => {
         this.getCompetitions();
@@ -171,7 +172,7 @@ class ViewAdminSelectCompetition extends Component {
   handleLogOut = event => {
     event.preventDefault();
     this.props.dispatch({ type: LOGIN_ACTIONS.LOGOUT });
-    this.props.history.push(homeRoute);
+    this.props.history.push(rosterRoute);
   };
   // Modal Close
   handleClose = () => {
@@ -250,5 +251,6 @@ ViewAdminSelectCompetition.propTypes = {
 
 export default compose(
   withRouter,
-  withStyles(styles)
+  withStyles(styles),
+  connect()
 )(ViewAdminSelectCompetition);
