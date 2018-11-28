@@ -49,7 +49,7 @@ class ViewAdminSelectCompetition extends Component {
     this.getCompetitions();
   }
 
-  // Create
+  // Create a competition, axios 'POST' with name of the competition
   addCompetition = () => {
     // reject blank input
     if (this.state.newCompetitionName === "") {
@@ -73,7 +73,7 @@ class ViewAdminSelectCompetition extends Component {
     }
   };
 
-  // Read
+  // Gets a list of all competitions
   getCompetitions = () => {
     axios({
       method: "GET",
@@ -103,7 +103,7 @@ class ViewAdminSelectCompetition extends Component {
     this.handleOpen();
   };
 
-  // Update
+  // Update competition, axios 'PUT', sets state to edited info.
   editCompetition = event => {
     event.preventDefault();
     const body = this.state.competitionToEdit;
@@ -129,7 +129,7 @@ class ViewAdminSelectCompetition extends Component {
     });
   };
 
-  // Delete
+  // Delete, passed as props to ViewAdminEditCompetition
   deleteCompetition = competitionIdToDelete => {
     axios({
       method: "DELETE",
@@ -144,13 +144,13 @@ class ViewAdminSelectCompetition extends Component {
         console.log("Error:", error);
       });
   };
-
+  // For creating a competition, passed as props to ViewAdminEditCompetition
   handleChangeFor = name => event => {
     this.setState({
       [name]: event.target.value
     });
   };
-
+  // For editing competition information, passed as props to ViewAdminEditCompetition
   handleEditChangeFor = propertyName => event => {
     this.setState({
       competitionToEdit: {
@@ -159,7 +159,7 @@ class ViewAdminSelectCompetition extends Component {
       }
     });
   };
-
+  // For react-datepicker, passed as props to ViewAdminEditCompetition
   handleDateChange = date => {
     this.setState({
       competitionToEdit: {
@@ -168,17 +168,17 @@ class ViewAdminSelectCompetition extends Component {
       }
     });
   };
-
+  // Log Out
   handleLogOut = event => {
     event.preventDefault();
     this.props.dispatch({ type: LOGIN_ACTIONS.LOGOUT });
     this.props.history.push(rosterRoute);
   };
-
+  // Modal Close
   handleClose = () => {
     this.setState({ modalOpen: false });
   };
-
+  // Modal Open
   handleOpen = () => {
     this.setState({ modalOpen: true });
   };
@@ -218,7 +218,7 @@ class ViewAdminSelectCompetition extends Component {
                 label="New competition name"
                 value={this.state.newCompetitionName}
                 onChange={this.handleChangeFor("newCompetitionName")}
-                // margin="normal"
+                margin="normal"
               />
             </ListItem>
 
