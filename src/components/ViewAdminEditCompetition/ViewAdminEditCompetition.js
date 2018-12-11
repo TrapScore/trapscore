@@ -8,6 +8,8 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import { Button, Modal, TextField, Typography } from "@material-ui/core";
 
+const REACT_APP_ROOT_URL = "https://trap-score-app.herokuapp.com"
+
 const styles = theme => ({
   container: {
     display: "flex",
@@ -53,7 +55,7 @@ const ViewAdminEditCompetition = props => {
           Shareable Registration URL:
         </Typography>
         <Typography variant="body1">
-          {process.env.REACT_APP_ROOT_URL}
+          {REACT_APP_ROOT_URL}
           /#/registration/
           {props.competitionToEdit.id}&{props.competitionToEdit.secret_url}
         </Typography>
